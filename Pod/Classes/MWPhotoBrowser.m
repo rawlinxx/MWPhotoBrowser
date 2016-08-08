@@ -1530,7 +1530,13 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (BOOL)areControlsHidden { return (_toolbar.alpha == 0); }
 - (void)hideControls { [self setControlsHidden:YES animated:YES permanent:NO]; }
 - (void)showControls { [self setControlsHidden:NO animated:YES permanent:NO]; }
-- (void)toggleControls { [self setControlsHidden:![self areControlsHidden] animated:YES permanent:NO]; }
+- (void)toggleControls
+{
+    [self setControlsHidden:![self areControlsHidden] animated:YES permanent:NO];
+    if ([self.delegate respondsToSelector:@selector(imageTaped)]) {
+        [self.delegate imageTaped];
+    }
+}
 
 #pragma mark - Properties
 
